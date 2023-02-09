@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace CapstoneTests
@@ -15,12 +16,14 @@ namespace CapstoneTests
             // arrange
             Candy test = new ChocolateConfectionery("TEST", "TEST", 1.00m, "TEST");
             Inventory testinv = new Inventory();
+            List<KeyValuePair<Candy, int>> testList;
 
             // act
             testinv.AddInventory(test);
+            testList = testinv.ListOfCurrentInventory();
 
             // assert
-            Assert.AreEqual(100, testinv.inventory[test]);
+            Assert.AreEqual(100, testList[0].Value);
         }
 
         [TestMethod]
@@ -29,12 +32,14 @@ namespace CapstoneTests
             // arrange
             Candy test = null;
             Inventory testinv = new Inventory();
+            List<KeyValuePair<Candy, int>> testList;
 
             // act
             testinv.AddInventory(test);
+            testList = testinv.ListOfCurrentInventory();
 
             // assert
-            Assert.AreEqual(0, testinv.inventory.Count);
+            Assert.AreEqual(0, testList.Count);
         }
 
         [TestMethod]
@@ -48,12 +53,15 @@ namespace CapstoneTests
             // arrange
             decimal dprice = (decimal)price;
             Inventory testinv = new Inventory();
+            List<KeyValuePair<Candy, int>> testList;
 
             // act
             testinv.CreateCandyFromImport(candyType, id, name, dprice, wrapped);
+            testList = testinv.ListOfCurrentInventory();
+
 
             // assert
-            Assert.AreEqual(1, testinv.inventory.Count);
+            Assert.AreEqual(1, testList.Count);
         }
 
         [TestMethod]
@@ -63,12 +71,14 @@ namespace CapstoneTests
             // arrange
             decimal dprice = (decimal)price;
             Inventory testinv = new Inventory();
+            List<KeyValuePair<Candy, int>> testList;
 
             // act
             testinv.CreateCandyFromImport(candyType, id, name, dprice, wrapped);
+            testList = testinv.ListOfCurrentInventory();
 
             // assert
-            Assert.AreEqual(0, testinv.inventory.Count);
+            Assert.AreEqual(0, testList.Count);
         }
     }
 }

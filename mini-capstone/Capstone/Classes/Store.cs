@@ -13,5 +13,14 @@ namespace Capstone.Classes
     /// </remarks>
     public sealed class Store
     {
+        // property
+        public decimal CustomerBalance { get; private set; }
+
+
+        public void AddMoney(int addedMoney)
+        {
+            decimal money = (decimal)addedMoney;
+            CustomerBalance += addedMoney;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Capstone.Classes
     public class Inventory
     {
         // fields
-        public Dictionary<Candy, int> inventory = new Dictionary<Candy, int>();
+        private Dictionary<Candy, int> inventory = new Dictionary<Candy, int>();
 
         //constructor
         public Inventory()
@@ -22,41 +22,36 @@ namespace Capstone.Classes
         {
             string filepath = @"C:\Store\inventory.csv";
 
-            try
+
+            // checks if file path exists, throws exception if not
+            if (!File.Exists(filepath))
             {
-                // checks if file path exists, throws exception if not
-                if (!File.Exists(filepath))
+                throw new FileNotFoundException();
+            }
+
+            // read the inventory file line by line
+            using (StreamReader reader = new StreamReader(filepath))
+            {
+                while (!reader.EndOfStream)
                 {
-                    throw new FileNotFoundException();
-                }
+                    // readline and create array
+                    string line = reader.ReadLine();
+                    string[] lineArray = line.Split("|");
 
-                // read the inventory file line by line
-                using (StreamReader reader = new StreamReader(filepath))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        // readline and create array
-                        string line = reader.ReadLine();
-                        string[] lineArray = line.Split("|");
+                    // setting properties from inventory array
+                    string candyType = lineArray[0];
+                    string id = lineArray[1];
+                    string name = lineArray[2];
+                    string wrapped = lineArray[4];
 
-                        // setting properties from inventory array
-                        string candyType = lineArray[0];
-                        string id = lineArray[1];
-                        string name = lineArray[2];
-                        string wrapped = lineArray[4];
+                    // save price as string then convert to a decimal
+                    string stringPrice = lineArray[3];
+                    decimal price = decimal.Parse(stringPrice);
 
-                        // save price as string then convert to a decimal
-                        string stringPrice = lineArray[3];
-                        decimal price = decimal.Parse(stringPrice);
-
-                        this.CreateCandyFromImport(candyType, id, name, price, wrapped);
-                    }
+                    this.CreateCandyFromImport(candyType, id, name, price, wrapped);
                 }
             }
-            catch (FileNotFoundException ex)
-            {
-                Console.WriteLine("Inventory file not found");
-            }
+
         }
         public void AddInventory(Candy candy)
         {
@@ -96,24 +91,24 @@ namespace Capstone.Classes
 
         public List<KeyValuePair<Candy, int>> ListOfCurrentInventory()
         {
-            
+
             // Need to create a list to be able to sort a dictionary.
 
             List<KeyValuePair<Candy, int>> inventoryList = new List<KeyValuePair<Candy, int>>();
 
             // Adding each dictionary item to the list.
 
-            foreach(KeyValuePair<Candy, int> candy in inventory)
+            foreach (KeyValuePair<Candy, int> candy in inventory)
             {
                 inventoryList.Add(candy);
             }
 
             // sorting list aphabetically by Candy id
             inventoryList = inventoryList.OrderBy(Candy => Candy.Key.Id).ToList();  // used Linq based on StackOverflow Thread https://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
-            
+
             return inventoryList;
         }
-        
+
         // Get dictionary when private
         /*
         public Dictionary<Candy, int> GetInventoryDictionary()

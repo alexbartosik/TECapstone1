@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.IO;
 using System.Xml.Linq;
 
 namespace Capstone.Classes
@@ -23,7 +24,15 @@ namespace Capstone.Classes
         /// </summary>
         public void Greeting()
         {
-            inventory.ImportInventory();
+            try // Move catch 
+            {
+                inventory.ImportInventory();
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine("Inventory file not found " + ex.Message);
+            }
+
             Console.WriteLine("Greetings!");
             // import inventory
         }
@@ -46,7 +55,7 @@ namespace Capstone.Classes
                         this.ShowInventory();
                         break;
                     case "2":
-                        //this.MakeSale();
+                        this.MakeSale();
                         break;
                     case "3":
                         keepGoing = false;
@@ -84,19 +93,51 @@ namespace Capstone.Classes
                 string wrapped = candy.Key.Wrapped;
                 string price = candy.Key.Price.ToString("C");
 
+                // Convert inventory qty from int to string and add soldout if value is 0.
                 int numQuantity = candy.Value;
                 string quantity;
-                if(numQuantity == 0)
+                if (numQuantity == 0)
                 {
                     quantity = "Sold Out";
                 }
                 else
                 {
-                    quantity = "Sold Out";
+                    quantity = numQuantity.ToString();
                 }
-
-
                 Console.WriteLine($"{id.PadRight(5)}  {name.PadRight(20)} {wrapped.PadRight(8)} {quantity.PadRight(10)} {price}");
+            }
+        }
+
+        public void MakeSale()
+        {
+            bool keepGoing = true;
+
+            while (keepGoing)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Please select a menu option (1-3)");
+                Console.WriteLine("(1) Take Money");
+                Console.WriteLine("(2) Select Product");
+                Console.WriteLine("(3) Complete Sale");
+                //Customer Balance
+                Console.WriteLine("Current Customer Balance: ");
+                string userInput = Console.ReadLine();
+                switch (userInput)
+                {
+                    case "1":
+                        this.ShowInventory();
+                        break;
+                    case "2":
+                        this.MakeSale();
+                        break;
+                    case "3":
+                        keepGoing = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Please input a numeral 1-3.");
+                        break;
+
+                }
             }
         }
     }
