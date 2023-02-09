@@ -14,6 +14,7 @@ namespace Capstone.Classes
     public sealed class UserInterface
     {
         private Store store = new Store();
+        private Inventory inventory = new Inventory();
 
         /// <summary>
         /// Provides all communication with human user.
