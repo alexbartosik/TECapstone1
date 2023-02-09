@@ -112,31 +112,73 @@ namespace Capstone.Classes
         {
             bool keepGoing = true;
 
+            Console.Clear();
             while (keepGoing)
             {
-                Console.WriteLine();
                 Console.WriteLine("Please select a menu option (1-3)");
                 Console.WriteLine("(1) Take Money");
                 Console.WriteLine("(2) Select Product");
                 Console.WriteLine("(3) Complete Sale");
                 //Customer Balance
-                Console.WriteLine("Current Customer Balance: ");
+                Console.WriteLine("Current Customer Balance: " + store.CustomerBalance.ToString("C"));
                 string userInput = Console.ReadLine();
                 switch (userInput)
                 {
                     case "1":
-                        this.ShowInventory();
+                        this.TakeMoney();
                         break;
                     case "2":
-                        this.MakeSale();
+                        //this.SelectProducts();
                         break;
                     case "3":
+                        //this.CompleteSale();
                         keepGoing = false;
                         break;
                     default:
+                        Console.Clear();
                         Console.WriteLine("Invalid input. Please input a numeral 1-3.");
+                        Console.WriteLine();
                         break;
 
+                }
+            }
+        }
+
+        public void TakeMoney()
+        {
+            Console.Clear();
+            bool keepGoing = true;
+            while (keepGoing)
+            {
+               
+                Console.WriteLine("Current Customer Balance: " + store.CustomerBalance.ToString("C"));
+                Console.WriteLine();
+                Console.WriteLine("Input the amount of money to add");
+                Console.WriteLine("* Money can be added only in whole dollar amounts");
+                Console.WriteLine("* Maximum of $100 can be added at a time");
+                Console.WriteLine("* Total balance cannot exceed $1000");
+                Console.WriteLine("* Enter 0 to return to Make Sale Menu.");
+
+                // Take validate user input and convert to int
+                string strAmount = Console.ReadLine();
+                int amount = int.Parse(strAmount);
+                if (amount <= 100 && amount > 0)
+                {
+                    // Add money to the balance
+                    store.AddMoney(amount);
+                    Console.Clear();
+                }
+                else if (amount == 0)
+                {
+                    // Exit to Make Sale
+                    keepGoing = false;
+                }
+                else
+                {
+                    // Prompt customer error
+                    Console.Clear();
+                    Console.WriteLine("Number entered is invalid.  Please try again.");
+                    Console.WriteLine();
                 }
             }
         }
