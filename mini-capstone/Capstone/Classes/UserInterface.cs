@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Capstone.Classes
 {
@@ -21,8 +23,81 @@ namespace Capstone.Classes
         /// </summary>
         public void Greeting()
         {
+            inventory.ImportInventory();
             Console.WriteLine("Greetings!");
             // import inventory
+        }
+
+        public void MainMenu()
+        {
+            bool keepGoing = true;
+
+            while (keepGoing)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Please select a menu option (1-3)");
+                Console.WriteLine("(1) Show Inventory");
+                Console.WriteLine("(2) Make Sale");
+                Console.WriteLine("(3) Quit");
+                string userInput = Console.ReadLine();
+                switch (userInput)
+                {
+                    case "1":
+                        this.ShowInventory();
+                        break;
+                    case "2":
+                        //this.MakeSale();
+                        break;
+                    case "3":
+                        keepGoing = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Please input a numeral 1-3.");
+                        break;
+
+                }
+            }
+        }
+
+        public void ShowInventory()
+        {
+            Console.Clear();
+
+            // Creating list to hold sorted inventory
+            List<KeyValuePair<Candy, int>> currentInventory = inventory.ListOfCurrentInventory();
+
+            // Creating inventory header
+            string idHeader = "Id";
+            string nameHeader = "Name";
+            string wrappedHeader = "Wrapped";
+            string quantityHeader = "Qty";
+            string priceHeader = "Price";
+
+            Console.WriteLine();
+            Console.WriteLine($"{idHeader.PadRight(5)}  {nameHeader.PadRight(20)} {wrappedHeader.PadRight(8)} {quantityHeader.PadRight(10)} {priceHeader}");
+
+            // Write line for each item in inventory
+            foreach (KeyValuePair<Candy, int> candy in currentInventory)
+            {
+                string id = candy.Key.Id;
+                string name = candy.Key.Name;
+                string wrapped = candy.Key.Wrapped;
+                string price = candy.Key.Price.ToString("C");
+
+                int numQuantity = candy.Value;
+                string quantity;
+                if(numQuantity == 0)
+                {
+                    quantity = "Sold Out";
+                }
+                else
+                {
+                    quantity = "Sold Out";
+                }
+
+
+                Console.WriteLine($"{id.PadRight(5)}  {name.PadRight(20)} {wrapped.PadRight(8)} {quantity.PadRight(10)} {price}");
+            }
         }
     }
 }

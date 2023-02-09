@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Capstone.Classes.Candy">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQQAAAAAAAAAAAAQAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Candy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.ChocolateConfectionery">
+    <Position X="21.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\ChocolateConfectionery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.FlavoredCandies">
+    <Position X="21.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\FlavoredCandies.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.HardTackConfectionery">
+    <Position X="19.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\HardTackConfectionery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.LicorceAndJellies">
+    <Position X="19.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\LicorceAndJellies.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.UserInterface">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\UserInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.Inventory">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAABAAAAAEAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.Cart">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Cart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.OutputLog">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OutputLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Classes.Store">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Store.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

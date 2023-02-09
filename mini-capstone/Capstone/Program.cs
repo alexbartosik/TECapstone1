@@ -14,6 +14,7 @@ namespace Capstone
         {
             UserInterface consoleInterface = new UserInterface();
             consoleInterface.Greeting();
+            consoleInterface.MainMenu();
         }
     }
 }

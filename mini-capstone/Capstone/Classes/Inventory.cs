@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace Capstone.Classes
 {
@@ -61,7 +62,7 @@ namespace Capstone.Classes
         {
             if (candy != null)
             {
-                // add candy to dictionary with default quatity of 100
+                // add candy to dictionary with quatity of 100
                 inventory[candy] = 100;
             }
         }
@@ -91,6 +92,26 @@ namespace Capstone.Classes
                     AddInventory(candy);
                     break;
             }
+        }
+
+        public List<KeyValuePair<Candy, int>> ListOfCurrentInventory()
+        {
+            
+            // Need to create a list to be able to sort a dictionary.
+
+            List<KeyValuePair<Candy, int>> inventoryList = new List<KeyValuePair<Candy, int>>();
+
+            // Adding each dictionary item to the list.
+
+            foreach(KeyValuePair<Candy, int> candy in inventory)
+            {
+                inventoryList.Add(candy);
+            }
+
+            // sorting list aphabetically by Candy id
+            inventoryList = inventoryList.OrderBy(Candy => Candy.Key.Id).ToList();  // used Linq based on StackOverflow Thread https://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
+            
+            return inventoryList;
         }
         
         // Get dictionary when private
