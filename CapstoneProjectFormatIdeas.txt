@@ -1,0 +1,8 @@
+Ideas for the outline of the capstone project:
+
+0 = "sold out"
+more info on padding strings
+cart - dictionary
+append to log file
+total or separate items for receipt?
+alphebetical order inventory by id

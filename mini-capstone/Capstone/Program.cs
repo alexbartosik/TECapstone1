@@ -13,7 +13,7 @@ namespace Capstone
         public static void Main(string[] args)
         {
             UserInterface consoleInterface = new UserInterface();
-            consoleInterface.Run();
+            consoleInterface.Greeting();
         }
     }
 }

@@ -18,15 +18,10 @@ namespace Capstone.Classes
         /// <summary>
         /// Provides all communication with human user.
         /// </summary>
-        public void Run()
+        public void Greeting()
         {
-            bool done = false;
-
-            while (!done)
-            {
-                Console.WriteLine("Greetings from the User Interface object.");
-                Console.ReadLine();
-            }
+            Console.WriteLine("Greetings!");
+            // import inventory
         }
     }
 }
