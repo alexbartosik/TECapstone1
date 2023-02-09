@@ -7,15 +7,19 @@ namespace CapstoneTests
     public class StoreTest
     {
         [TestMethod]
-        public void StoreTestObjectCreation() // This test is for reference and doesn't test anything meaningful. Feel free to delete it.
+        [DataRow(100, 100)]
+        [DataRow(1001, 0)]
+        [DataRow(0, 0)]
+        public void AddMoneyAddsMoneyToBalance(int amount, int balance)
         {
             //Arrange
-            Store testObject = new Store();
+            Store test = new Store();
 
-            //Act (done in arrange above)
+            //Act
+            test.AddMoney(amount);
 
             //Assert
-            Assert.IsNotNull(testObject);
+            Assert.AreEqual(balance, test.CustomerBalance);
         }
     }
 }

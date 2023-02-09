@@ -17,16 +17,12 @@ namespace Capstone.Classes
         public decimal CustomerBalance { get; private set; }
 
 
-        public bool AddMoney(int addedMoney)
+        public void AddMoney(int addedMoney)
         {
             decimal money = (decimal)addedMoney;
             if (CustomerBalance + money <= 1000)
             {
                 CustomerBalance += money;
-                return true;
-            }
-            {
-                return false;
             }
         }
     }

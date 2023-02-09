@@ -111,6 +111,9 @@ namespace Capstone.Classes
         public void MakeSale()
         {
             bool keepGoing = true;
+            Cart cart = new Cart(); // create the customer's cart to add products and complete sale
+
+/* Quesiton: Do we need to create a new balance for each customer cart? */
 
             Console.Clear();
             while (keepGoing)
@@ -128,7 +131,7 @@ namespace Capstone.Classes
                         this.TakeMoney();
                         break;
                     case "2":
-                        //this.SelectProducts();
+                        this.SelectProducts(cart);
                         break;
                     case "3":
                         //this.CompleteSale();
@@ -150,37 +153,90 @@ namespace Capstone.Classes
             bool keepGoing = true;
             while (keepGoing)
             {
-               
                 Console.WriteLine("Current Customer Balance: " + store.CustomerBalance.ToString("C"));
                 Console.WriteLine();
                 Console.WriteLine("Input the amount of money to add");
-                Console.WriteLine("* Money can be added only in whole dollar amounts");
+                Console.WriteLine("* Money can be added only in whole dollar amounts (1-100)");
                 Console.WriteLine("* Maximum of $100 can be added at a time");
                 Console.WriteLine("* Total balance cannot exceed $1000");
                 Console.WriteLine("* Enter 0 to return to Make Sale Menu.");
 
                 // Take validate user input and convert to int
                 string strAmount = Console.ReadLine();
-                int amount = int.Parse(strAmount);
-                if (amount <= 100 && amount > 0)
+                try
                 {
-                    // Add money to the balance
-                    store.AddMoney(amount);
-                    Console.Clear();
+                    int amount = int.Parse(strAmount);
+
+                    if (amount <= 100 && amount > 0)
+                    {
+                        if (store.CustomerBalance + amount <= 1000)
+                        {
+                            // Add money to the balance
+                            store.AddMoney(amount);
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            // Prompt balance above $1000 error
+                            Console.Clear();
+                            Console.WriteLine("Number entered is invalid.  Please try again.");
+                            Console.WriteLine("* Total balance cannot exceed $1000");
+                            Console.WriteLine();
+                        }
+                    }
+                    else if (amount == 0)
+                    {
+                        // Exit to Make Sale
+                        keepGoing = false;
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        // Prompt maximum addition of $100 error
+                        Console.Clear();
+                        Console.WriteLine("Number entered is invalid.  Please try again.");
+                        Console.WriteLine("* Maximum of $100 can be added at a time");
+                        Console.WriteLine();
+                    }
                 }
-                else if (amount == 0)
+                catch (FormatException)
                 {
-                    // Exit to Make Sale
-                    keepGoing = false;
-                }
-                else
-                {
-                    // Prompt customer error
+                    // Prompt whole number error
                     Console.Clear();
                     Console.WriteLine("Number entered is invalid.  Please try again.");
+                    Console.WriteLine("* Money can be added only in whole dollar amounts (1-100)");
                     Console.WriteLine();
                 }
             }
+        }
+
+        public void SelectProducts(Cart cart)
+        {
+            this.ShowInventory();
+            Console.WriteLine();
+            Console.WriteLine("Please enter a product Id to add to the cart");
+
+            string userInputId = Console.ReadLine().ToUpper();
+            Console.WriteLine("Please enter the quantity of product to add to the cart");
+
+            string strUserInputQty = Console.ReadLine().ToUpper();
+            int userInputQty = int.Parse(Console.ReadLine());
+
+            // check inventory for valid user input Id
+            Candy itemExist = inventory.CheckInventoryId(userInputId);
+            if (itemExist != null)
+            {
+                // check inventory for valid user input qty
+                // compare inventory quatity to input qty
+            }
+            else
+            {
+                // invalid product id message
+            }
+
+
+
+            cart.AddToCart(userInputId, userInputQty);
         }
     }
 }

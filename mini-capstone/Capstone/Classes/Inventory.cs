@@ -109,11 +109,24 @@ namespace Capstone.Classes
             return inventoryList;
         }
 
-        // Get dictionary when private
-        /*
-        public Dictionary<Candy, int> GetInventoryDictionary()
+        public Candy CheckInventoryId(string inputId)
+            // checks if item exists in inventory
         {
-            return inventory;
-        }*/
+            foreach (KeyValuePair<Candy, int> product in inventory)
+            {
+                if (product.Key.Id == inputId)
+                {
+                    return product.Key;
+                }
+            }
+            return null;
+        }
+
+        public bool CheckInventoryQty(Candy candy, int inputQty)
+        {
+            // return inventory value
+            return false;
+        }
+
     }
 }
