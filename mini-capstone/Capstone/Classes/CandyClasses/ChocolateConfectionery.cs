@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Capstone.Classes
+namespace Capstone.Classes.CandyClasses
 {
     public class ChocolateConfectionery : Candy
     {

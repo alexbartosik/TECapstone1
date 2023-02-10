@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
+using Capstone.Classes.CandyClasses;
 
 namespace Capstone.Classes
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Capstone.Classes.CandyClasses;
 
 namespace Capstone.Classes
 {
@@ -14,7 +15,7 @@ namespace Capstone.Classes
 
         }
 
-        public void AddToCart(Candy selectedCandy, int quantity, Store store, Inventory inventory)
+        public void AddToCart(Candy selectedCandy, int quantity, Store store, Inventory inventory, OutputLog log)
         {
             //Combine candy and customer quanity then add to cart
             KeyValuePair<Candy, int> candyToBeAdded = new KeyValuePair<Candy, int>(selectedCandy, quantity);
@@ -27,7 +28,8 @@ namespace Capstone.Classes
             decimal purchasePrice = selectedCandy.Price * quantity;
             store.RemoveMoney(purchasePrice);
 
-            //Call Log
+            string output = $"{quantity} {selectedCandy.Name} {selectedCandy.Id} {purchasePrice.ToString("C")} {store.CustomerBalance.ToString("C")}";
+            log.WriteToLog(output);
         }
 
         public string[] DisplayCart()

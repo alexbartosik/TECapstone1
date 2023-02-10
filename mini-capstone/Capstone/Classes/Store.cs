@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Capstone.Classes.CandyClasses;
 
 namespace Capstone.Classes
 {
@@ -17,15 +18,15 @@ namespace Capstone.Classes
         // property
         public decimal CustomerBalance { get; private set; }
 
-        public void AddMoney(int addedMoney)
+        public void AddMoney(int addedMoney, OutputLog log)
         {
             decimal money = (decimal)addedMoney;
             if (CustomerBalance + money <= 1000)
             {
                 CustomerBalance += money;
+                log.MoneyReceived(money, CustomerBalance);
             }
 
-            // Add Log
         }
 
         public bool CheckAvailableBalance(Candy candy, int userQty)
@@ -47,7 +48,7 @@ namespace Capstone.Classes
             CustomerBalance -= amountOfSale;
         }
 
-        public string MakeChange()
+        public string MakeChange(OutputLog log)
         {
             int balanceInPennies = (int)(CustomerBalance * 100);
             int remainingBalance;
@@ -65,8 +66,9 @@ namespace Capstone.Classes
             remainingBalance %= 10;
             int nickles = remainingBalance / 5;
 
+            log.ChangeGiven(CustomerBalance);
+
             return $"Change: {CustomerBalance.ToString("C")} \n({twenties}) Twenties, ({tens}) Tens, ({fives}) Fives, ({ones}) Ones, ({quarters}) Quarters, ({dimes}) Dimes, ({nickles}) Nickles";
-            
         }
     }
 }

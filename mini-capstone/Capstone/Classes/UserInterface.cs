@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using System.IO;
 using System.Xml.Linq;
+using Capstone.Classes.CandyClasses;
 
 namespace Capstone.Classes
 {
@@ -17,7 +18,7 @@ namespace Capstone.Classes
     public sealed class UserInterface
     {
         private Inventory inventory = new Inventory();
-
+        OutputLog log = new OutputLog();
         /// <summary>
         /// Provides all communication with human user.
         /// </summary>
@@ -171,7 +172,7 @@ namespace Capstone.Classes
                         if (store.CustomerBalance + amount <= 1000)
                         {
                             // Add money to the balance
-                            store.AddMoney(amount);
+                            store.AddMoney(amount, log);
                             Console.Clear();
                         }
                         else
@@ -246,7 +247,7 @@ namespace Capstone.Classes
                             if (sufficientFunds)
                             { // user isn't poor
                                 // add the candy to cart
-                                cart.AddToCart(selectedCandy, userInputQty, store, inventory);
+                                cart.AddToCart(selectedCandy, userInputQty, store, inventory, log);
                                 Console.Clear();
                             }
                             else // user is poor
@@ -300,7 +301,7 @@ namespace Capstone.Classes
 
             // make change
             Console.WriteLine();
-            string change = store.MakeChange();
+            string change = store.MakeChange(log);
             Console.WriteLine(change);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Capstone.Classes;
+using Capstone.Classes.CandyClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
