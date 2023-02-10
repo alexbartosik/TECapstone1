@@ -41,5 +41,26 @@ namespace CapstoneTests
             // assert
             Assert.AreEqual(expected, sufficientFunds);
         }
+
+        [TestMethod]
+        [DataRow(10, 90)]
+        [DataRow(0, 100)]
+        [DataRow(100, 0)]
+        public void CheckRemoveMoneyProperlyDecementsBalance(double amountOfSale, double expectedBalance)
+        {
+            // arrange
+            Store test = new Store();
+            test.AddMoney(100);
+            decimal expectSale = (decimal)amountOfSale;
+            decimal decBalance = (decimal)expectedBalance;
+
+
+            // act
+            test.RemoveMoney(expectSale);
+            
+
+            // assert
+            Assert.AreEqual(decBalance, test.CustomerBalance);
+        }
     }
 }

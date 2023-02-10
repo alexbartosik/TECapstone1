@@ -16,7 +16,6 @@ namespace Capstone.Classes
     /// </remarks>
     public sealed class UserInterface
     {
-        private Store store = new Store();
         private Inventory inventory = new Inventory();
 
         /// <summary>
@@ -34,6 +33,7 @@ namespace Capstone.Classes
             }
 
             Console.WriteLine("Greetings!");
+            
             // import inventory
         }
 
@@ -61,9 +61,9 @@ namespace Capstone.Classes
                         keepGoing = false;
                         break;
                     default:
+                        Console.Clear();
                         Console.WriteLine("Invalid input. Please input a numeral 1-3.");
                         break;
-
                 }
             }
         }
@@ -112,8 +112,7 @@ namespace Capstone.Classes
         {
             bool keepGoing = true;
             Cart cart = new Cart(); // create the customer's cart to add products and complete sale
-
-/* Quesiton: Do we need to create a new balance for each customer cart? */
+            Store store = new Store();
 
             Console.Clear();
             while (keepGoing)
@@ -128,13 +127,13 @@ namespace Capstone.Classes
                 switch (userInput)
                 {
                     case "1":
-                        this.TakeMoney();
+                        this.TakeMoney(store);
                         break;
                     case "2":
-                        this.SelectProducts(cart);
+                        this.SelectProducts(cart, store);
                         break;
                     case "3":
-                        //this.CompleteSale();
+                        this.CompleteSale(cart, store);
                         keepGoing = false;
                         break;
                     default:
@@ -147,7 +146,7 @@ namespace Capstone.Classes
             }
         }
 
-        public void TakeMoney()
+        public void TakeMoney(Store store)
         {
             Console.Clear();
             bool keepGoing = true;
@@ -184,6 +183,7 @@ namespace Capstone.Classes
                             Console.WriteLine();
                         }
                     }
+                    // Check for negitive numbers
                     else if (amount == 0)
                     {
                         // Exit to Make Sale
@@ -210,7 +210,7 @@ namespace Capstone.Classes
             }
         }
 
-        public void SelectProducts(Cart cart)
+        public void SelectProducts(Cart cart, Store store)
         {
             this.ShowInventory();
             Console.WriteLine();
@@ -219,8 +219,8 @@ namespace Capstone.Classes
             string userInputId = Console.ReadLine().ToUpper();
 
             // check inventory for valid user input Id
-            Candy itemExist = inventory.CheckInventoryId(userInputId);
-            if (itemExist != null)
+            Candy selectedCandy = inventory.CheckInventoryId(userInputId);
+            if (selectedCandy != null)
             {
                 Console.WriteLine("Please enter the quantity of product to add to the cart");
                 try
@@ -230,7 +230,7 @@ namespace Capstone.Classes
                     int userInputQty = int.Parse(strUserInputQty);
 
                     // check inventory for valid user input qty
-                    int inventoryQtyExistsCondition = inventory.CheckInventoryQty(itemExist, userInputQty);
+                    int inventoryQtyExistsCondition = inventory.CheckInventoryQty(selectedCandy, userInputQty);
 
                     switch (inventoryQtyExistsCondition)
                     {
@@ -242,13 +242,12 @@ namespace Capstone.Classes
 
                         case 2: // Process sale
                             // check if user has sufficient funds
-                            bool sufficientFunds = store.CheckAvailableBalance(itemExist, userInputQty);
+                            bool sufficientFunds = store.CheckAvailableBalance(selectedCandy, userInputQty);
                             if (sufficientFunds)
                             { // user isn't poor
                                 // add the candy to cart
-                                cart.AddToCart(userInputId, userInputQty);
-                                // remove from inventory
-                                // decrement balance
+                                cart.AddToCart(selectedCandy, userInputQty, store, inventory);
+                                Console.Clear();
                             }
                             else // user is poor
                             {
@@ -284,6 +283,25 @@ namespace Capstone.Classes
                 Console.WriteLine("Invalid product Id. Product is not in inventory.");
                 Console.WriteLine();
             }
+        }
+
+        public void CompleteSale(Cart cart, Store store)
+        {
+            Console.Clear();
+
+            // print receipt
+            Console.WriteLine("Purchase Summary:");
+            Console.WriteLine();
+            string[] receipt = cart.DisplayCart();
+            foreach (string item in receipt)
+            {
+                Console.WriteLine(item);
+            }
+
+            // make change
+            Console.WriteLine();
+            string change = store.MakeChange();
+            Console.WriteLine(change);
         }
     }
 }

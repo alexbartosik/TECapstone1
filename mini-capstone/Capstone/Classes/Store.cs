@@ -24,6 +24,8 @@ namespace Capstone.Classes
             {
                 CustomerBalance += money;
             }
+
+            // Add Log
         }
 
         public bool CheckAvailableBalance(Candy candy, int userQty)
@@ -38,6 +40,33 @@ namespace Capstone.Classes
             }
             // false = insufficient funds
             return false;
+        }
+
+        public void RemoveMoney(decimal amountOfSale)
+        {
+            CustomerBalance -= amountOfSale;
+        }
+
+        public string MakeChange()
+        {
+            int balanceInPennies = (int)(CustomerBalance * 100);
+            int remainingBalance;
+            int twenties = balanceInPennies / 2000;
+            remainingBalance = balanceInPennies % 2000;
+            int tens = remainingBalance / 1000;
+            remainingBalance %= 1000;
+            int fives = remainingBalance / 500;
+            remainingBalance %= 500;
+            int ones = remainingBalance / 100;
+            remainingBalance %= 100;
+            int quarters = remainingBalance / 25;
+            remainingBalance %= 25;
+            int dimes = remainingBalance / 10;
+            remainingBalance %= 10;
+            int nickles = remainingBalance / 5;
+
+            return $"Change: {CustomerBalance.ToString("C")} \n({twenties}) Twenties, ({tens}) Tens, ({fives}) Fives, ({ones}) Ones, ({quarters}) Quarters, ({dimes}) Dimes, ({nickles}) Nickles";
+            
         }
     }
 }

@@ -136,6 +136,7 @@ namespace Capstone.Classes
             {
                 return 0;
             }
+            // Add quantity 0 condition
             else if (inventory[candy] == 0)
             {
                 return 1;
@@ -148,6 +149,11 @@ namespace Capstone.Classes
             {
                 return 3;
             }
+        }
+
+        public void RemoveFromInventory(Candy candy, int quantity)
+        {
+            inventory[candy] -= quantity;
         }
 
     }
