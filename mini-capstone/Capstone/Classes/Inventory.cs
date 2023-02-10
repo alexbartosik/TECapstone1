@@ -54,6 +54,7 @@ namespace Capstone.Classes
             }
 
         }
+
         public void AddInventory(Candy candy)
         {
             if (candy != null)

@@ -7,6 +7,8 @@ namespace Capstone.Classes
 {
     public class Cart
     {
+        OutputLog log = new OutputLog();
+
         //field
         private List<KeyValuePair<Candy, int>> customerCart = new List<KeyValuePair<Candy, int>>();
 
@@ -15,7 +17,7 @@ namespace Capstone.Classes
 
         }
 
-        public void AddToCart(Candy selectedCandy, int quantity, Store store, Inventory inventory, OutputLog log)
+        public void AddToCart(Candy selectedCandy, int quantity, Store store, Inventory inventory)
         {
             //Combine candy and customer quanity then add to cart
             KeyValuePair<Candy, int> candyToBeAdded = new KeyValuePair<Candy, int>(selectedCandy, quantity);
@@ -30,6 +32,11 @@ namespace Capstone.Classes
 
             string output = $"{quantity} {selectedCandy.Name} {selectedCandy.Id} {purchasePrice.ToString("C")} {store.CustomerBalance.ToString("C")}";
             log.WriteToLog(output);
+        }
+
+        public List<KeyValuePair<Candy, int>> GetCartList()
+        {
+            return customerCart;
         }
 
         public string[] DisplayCart()

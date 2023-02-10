@@ -15,10 +15,12 @@ namespace Capstone.Classes
     /// </remarks>
     public sealed class Store
     {
+        OutputLog log = new OutputLog();
+
         // property
         public decimal CustomerBalance { get; private set; }
 
-        public void AddMoney(int addedMoney, OutputLog log)
+        public void AddMoney(int addedMoney)
         {
             decimal money = (decimal)addedMoney;
             if (CustomerBalance + money <= 1000)
@@ -48,7 +50,7 @@ namespace Capstone.Classes
             CustomerBalance -= amountOfSale;
         }
 
-        public string MakeChange(OutputLog log)
+        public string MakeChange()
         {
             int balanceInPennies = (int)(CustomerBalance * 100);
             int remainingBalance;

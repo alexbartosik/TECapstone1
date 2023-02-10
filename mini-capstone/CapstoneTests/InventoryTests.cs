@@ -48,8 +48,6 @@ namespace CapstoneTests
         [DataRow("SR", "S1", "test", 1.00, "test")]
         [DataRow("HC", "H1", "test", 1.00, "test")]
         [DataRow("LI", "L1", "test", 1.00, "test")]
-        
-
         public void CreateCandyFromImportCreatesCorrectCandy(string candyType, string id, string name, double price, string wrapped)
         {
             // arrange
@@ -139,26 +137,27 @@ namespace CapstoneTests
         }
 
 
-        /*
-        [TestMethod] // Finish after decrement inventory method
-        [DataRow(100,2)]
-        [DataRow(101,)]
-        [DataRow(-1,)]
-
-        public void CheckInventoryQtyReturnsProperCondition(int testQty, int expectResult)
+        
+        [TestMethod]
+        [DataRow(101, 0, 0)] // outside accepted value
+        [DataRow(-1, 0, 0)] // outside accepted value
+        [DataRow(50, 100, 1)] // product is sold out
+        [DataRow(75, 40, 3)] // more product requested than is available
+        public void CheckInventoryQtyReturnsProperCondition(int testQty, int qtyRemoved, int expectResult)
         {
             // Arrange
             Inventory testInventory = new Inventory();
             testInventory.CreateCandyFromImport("CH", "C1", "Test", 1, "T");
             Candy testCandy = testInventory.CheckInventoryId("C1");
+            testInventory.RemoveFromInventory(testCandy, qtyRemoved);
 
             // Act
             int result = testInventory.CheckInventoryQty(testCandy, testQty);
 
             // Assert
-
+            Assert.AreEqual(expectResult, result);
 
         }
-        */
+        
     }
 }
