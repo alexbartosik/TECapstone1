@@ -57,8 +57,9 @@ namespace Capstone.Classes
         {
             if (candy != null)
             {
-                // add candy to dictionary with quatity of 100
-                inventory[candy] = 100;
+                const int DefaultStartingQty = 100;
+                // add candy to dictionary with default quatity of 100
+                inventory[candy] = DefaultStartingQty;
             }
         }
 
@@ -122,10 +123,31 @@ namespace Capstone.Classes
             return null;
         }
 
-        public bool CheckInventoryQty(Candy candy, int inputQty)
+        /// <summary>
+        /// Checks if the store inventory has enough of what the user requests
+        /// </summary>
+        /// <param name="candy"></param>
+        /// <param name="inputQty"></param>
+        /// <returns>Returns a int that corresponds to a specific condition, 0 = Invalid input, 1 = Product SOLD OUT, 2 = Process sale, 3 = Insufficient qty</returns>
+        public int CheckInventoryQty(Candy candy, int inputQty)
         {
             // return inventory value
-            return false;
+            if (inputQty < 0 || inputQty > 100)
+            {
+                return 0;
+            }
+            else if (inventory[candy] == 0)
+            {
+                return 1;
+            }
+            else if (inventory[candy] >= inputQty)
+            {
+                return 2;
+            }
+            else
+            {
+                return 3;
+            }
         }
 
     }

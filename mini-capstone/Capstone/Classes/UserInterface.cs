@@ -217,26 +217,73 @@ namespace Capstone.Classes
             Console.WriteLine("Please enter a product Id to add to the cart");
 
             string userInputId = Console.ReadLine().ToUpper();
-            Console.WriteLine("Please enter the quantity of product to add to the cart");
-
-            string strUserInputQty = Console.ReadLine().ToUpper();
-            int userInputQty = int.Parse(Console.ReadLine());
 
             // check inventory for valid user input Id
             Candy itemExist = inventory.CheckInventoryId(userInputId);
             if (itemExist != null)
             {
-                // check inventory for valid user input qty
-                // compare inventory quatity to input qty
+                Console.WriteLine("Please enter the quantity of product to add to the cart");
+                try
+                {
+                    string strUserInputQty = Console.ReadLine().ToUpper();
+                    // parse user input into usable integer
+                    int userInputQty = int.Parse(strUserInputQty);
+
+                    // check inventory for valid user input qty
+                    int inventoryQtyExistsCondition = inventory.CheckInventoryQty(itemExist, userInputQty);
+
+                    switch (inventoryQtyExistsCondition)
+                    {
+                        case 0: // Invalid input
+                            Console.Clear();
+                            Console.WriteLine("Quantity is outside of accepted range. Please try another whole quantity (1-100)");
+                            Console.WriteLine();
+                            break;
+
+                        case 2: // Process sale
+                            // check if user has sufficient funds
+                            bool sufficientFunds = store.CheckAvailableBalance(itemExist, userInputQty);
+                            if (sufficientFunds)
+                            { // user isn't poor
+                                // add the candy to cart
+                                cart.AddToCart(userInputId, userInputQty);
+                                // remove from inventory
+                                // decrement balance
+                            }
+                            else // user is poor
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Insufficient funds. Stop being poor.");
+                                Console.WriteLine();
+                            }
+                            break;
+
+                        case 1: // Product SOLD OUT
+                            Console.Clear();
+                            Console.WriteLine("This product is SOLD OUT. Please choose another product.");
+                            Console.WriteLine();
+                            break;
+
+                        case 3: // Insufficient qty
+                            Console.Clear();
+                            Console.WriteLine("Insufficient quantity. Check available stock and try again.");
+                            Console.WriteLine();
+                            break;
+                    }
+                }
+                catch (FormatException) // Ensures user inputs a whole integer 1-100
+                {
+                    Console.Clear();
+                    Console.WriteLine("Quantity entered is the wrong format. Please enter a whole integer (1-100).");
+                    Console.WriteLine();
+                }
             }
-            else
+            else // Item doesn't exist in inventory
             {
-                // invalid product id message
+                Console.Clear();
+                Console.WriteLine("Invalid product Id. Product is not in inventory.");
+                Console.WriteLine();
             }
-
-
-
-            cart.AddToCart(userInputId, userInputQty);
         }
     }
 }

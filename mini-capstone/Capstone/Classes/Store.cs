@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Capstone.Classes
@@ -16,7 +17,6 @@ namespace Capstone.Classes
         // property
         public decimal CustomerBalance { get; private set; }
 
-
         public void AddMoney(int addedMoney)
         {
             decimal money = (decimal)addedMoney;
@@ -24,6 +24,20 @@ namespace Capstone.Classes
             {
                 CustomerBalance += money;
             }
+        }
+
+        public bool CheckAvailableBalance(Candy candy, int userQty)
+        {
+            // calculate the total price of product * user requested qty
+            decimal calcAmount = candy.Price * userQty;
+            // compare user balance to total price and create a bool
+            if (CustomerBalance > calcAmount)
+            {
+                // true = sufficient funds
+                return true;
+            }
+            // false = insufficient funds
+            return false;
         }
     }
 }
